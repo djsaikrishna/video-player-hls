@@ -1,7 +1,7 @@
-import { useContext, useEffect } from 'react';
+import {useContext, useEffect} from 'react';
 import toast from 'react-hot-toast';
-import { NextSeo } from 'next-seo';
-import { ThemeContext } from 'styled-components';
+import {NextSeo} from 'next-seo';
+import {ThemeContext} from 'styled-components';
 
 import LottieAnimation from '@/components/LottieAnimation';
 import loadingAnimation from '@/animation/404-error.json';
@@ -10,7 +10,7 @@ import HotToast from '@/components/HotToast';
 import Container from '@/styles/pages/error';
 
 const Custom404 = () => {
-  const { colors } = useContext(ThemeContext);
+  const {colors} = useContext(ThemeContext);
   // Redirecionando para a pagina home
   useEffect(() => {
     toast.error('Page not found', {

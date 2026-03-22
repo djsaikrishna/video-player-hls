@@ -1,8 +1,8 @@
-import { useContext, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import {useContext, useEffect} from 'react';
+import {useRouter} from 'next/router';
 import toast from 'react-hot-toast';
-import { NextSeo } from 'next-seo';
-import { ThemeContext } from 'styled-components';
+import {NextSeo} from 'next-seo';
+import {ThemeContext} from 'styled-components';
 
 import LottieAnimation from '@/components/LottieAnimation';
 import loadingAnimation from '@/animation/500-error.json';
@@ -12,7 +12,7 @@ import Container from '@/styles/pages/error';
 
 const Custom500 = () => {
   const router = useRouter();
-  const { colors } = useContext(ThemeContext);
+  const {colors} = useContext(ThemeContext);
   // Redirecionando para a pagina home
   useEffect(() => {
     toast.error('Internal Server Error', {
@@ -50,7 +50,6 @@ const Custom500 = () => {
 
   return (
     <>
-
       <NextSeo
         title="Internal Server Error"
         noindex
@@ -59,7 +58,8 @@ const Custom500 = () => {
           {
             name: 'viewport',
             content: 'initial-scale=1.0, width=device-width',
-          }, {
+          },
+          {
             httpEquiv: 'refresh',
             content: '5; url=/',
           },

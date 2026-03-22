@@ -1,36 +1,36 @@
-import { useEffect } from 'react';
-import LottieWeb from 'lottie-web';
+import {useEffect} from 'react';
 
-import { LottieAnimationTypes } from '@/types/lottie-animation';
-import { Lottie } from './styles';
+import {LottieAnimationTypes} from '@/types/lottie-animation';
+import {Lottie} from './styles';
+// Remove dynamic import of lottie-web, we'll import it inside useEffect
 
 const LottieAnimation = ({
-  Width, Height, LoadingAnimation, ID, ...props
-}:LottieAnimationTypes) => {
+  Width,
+  Height,
+  LoadingAnimation,
+  ID,
+  ...props
+}: LottieAnimationTypes) => {
   useEffect(() => {
-    if (process.browser) {
-      const element = document.getElementById(`${ID}`);
+    // Only run on client
+    if (typeof window !== 'undefined') {
+      import('lottie-web').then(LottieWeb => {
+        const element = document.getElementById(`${ID}`);
 
-      if (element) {
-        LottieWeb.loadAnimation({
-          container: element,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          animationData: LoadingAnimation,
-        });
-      }
+        if (element) {
+          LottieWeb.default.loadAnimation({
+            container: element,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            animationData: LoadingAnimation,
+          });
+        }
+      });
     }
   }, []);
 
-  return (
-    <Lottie
-      id={ID}
-      Width={Width}
-      Height={Height}
-      style={props.style}
-    />
-  );
+  return <Lottie id={ID} Width={Width} Height={Height} style={props.style} />;
 };
 
 export default LottieAnimation;
