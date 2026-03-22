@@ -56,15 +56,15 @@
   "name": "hls-player",
   "private": "true",
   "scripts": {
-    "build": "next build",
-    "dev": "next",
+    "build": "env NODE_OPTIONS=--openssl-legacy-provider next build",
+    "dev": "env NODE_OPTIONS=--openssl-legacy-provider next",
     "lint": "eslint ./",
     "lint-staged": "lint-staged",
     "lint:fix": "yarn lint --fix",
     "next-lint": "next lint",
     "prepare": "husky install",
     "setup": "yarn install",
-    "start": "next start"
+    "start": "env NODE_OPTIONS=--openssl-legacy-provider next start"
   },
   "version": "1.0.0"
 }
