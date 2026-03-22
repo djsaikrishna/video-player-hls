@@ -37,14 +37,16 @@ export default function Home() {
   const [url, setUrl] = useState('');
   const [hasVideoParam, setHasVideoParam] = useState(false);
   const [isFull, setIsFull] = useState(false);
+  const [aspect, setAspect] = useState<'cover' | 'fill' | 'contain'>('contain');
   const {colors} = useContext(ThemeContext);
 
-  // Preenche automaticamente o campo se houver ?video= na URL e verifica ?full=1
+  // Preenche automaticamente o campo se houver ?video= na URL e verifica ?full=1 e ?aspect=cover|fill|contain
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const videoParam = params.get('video');
       const fullParam = params.get('full');
+      const aspectParam = params.get('aspect');
       if (videoParam) {
         setUrl(videoParam);
         setHasVideoParam(true);
@@ -53,6 +55,15 @@ export default function Home() {
         setIsFull(true);
       } else {
         setIsFull(false);
+      }
+      if (
+        aspectParam === 'cover' ||
+        aspectParam === 'fill' ||
+        aspectParam === 'contain'
+      ) {
+        setAspect(aspectParam);
+      } else {
+        setAspect('contain');
       }
     }
   }, []);
@@ -88,7 +99,7 @@ export default function Home() {
       />
 
       <Container $full={isFull}>
-        <PlyrPlayer url={url} full={isFull} />
+        <PlyrPlayer url={url} full={isFull} aspect={aspect} />
 
         {!hasVideoParam && !isFull && (
           <footer>

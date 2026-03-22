@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-export const VideoWrapper = styled.main<{$full?: boolean}>`
+export const VideoWrapper = styled.main<{
+  $full?: boolean;
+  $aspect?: 'cover' | 'fill' | 'contain';
+}>`
   width: ${({$full}) => ($full ? '100vw' : '640px')};
   height: ${({$full}) => ($full ? '100vh' : 'auto')};
   max-height: ${({$full}) => ($full ? '100vh' : '360px')};
@@ -28,7 +31,7 @@ export const VideoWrapper = styled.main<{$full?: boolean}>`
     max-width: 100vw;
     max-height: 100vh;
 
-    object-fit: ${({$full}) => ($full ? 'cover' : 'contain')};
+    object-fit: ${({$aspect}) => $aspect || 'contain'};
 
     /* RESPONSIVE */
     ${({$full}) =>

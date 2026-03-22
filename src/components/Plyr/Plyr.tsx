@@ -9,9 +9,14 @@ import {VideoWrapper} from './styles';
 type PlyrPlayerTypes = {
   url: string;
   full?: boolean;
+  aspect?: 'cover' | 'fill' | 'contain';
 };
 
-const PlyrPlayer = ({url, full = false}: PlyrPlayerTypes) => {
+const PlyrPlayer = ({
+  url,
+  full = false,
+  aspect = 'contain',
+}: PlyrPlayerTypes) => {
   useEffect(() => {
     (function plyrPluginCapture(document) {
       function saveScreenShot(data: string, filename: string) {
@@ -235,7 +240,7 @@ const PlyrPlayer = ({url, full = false}: PlyrPlayerTypes) => {
   }, [url]);
 
   return (
-    <VideoWrapper $full={full}>
+    <VideoWrapper $full={full} $aspect={aspect}>
       <video
         id="player"
         // autoPlay
