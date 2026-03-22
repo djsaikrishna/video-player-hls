@@ -3,38 +3,48 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import {
-  useContext,
-  useState,
-} from 'react';
+import {useContext, useState, useEffect} from 'react';
 import dynamic from 'next/dynamic';
-import { NextSeo } from 'next-seo';
+import {NextSeo} from 'next-seo';
 import toast from 'react-hot-toast';
 import ReactLoading from 'react-loading';
-import { ThemeContext } from 'styled-components';
+import {ThemeContext} from 'styled-components';
 
-import { Container } from '../styles/pages/index/styles';
+import {Container} from '../styles/pages/index/styles';
 
-const HotToast = dynamic(() => (import('@/components/HotToast')));
-const PlyrPlayer = dynamic(() => import('@/components/Plyr'),
-  {
-    loading: () => (
-      <div style={{
+const HotToast = dynamic(() => import('@/components/HotToast'));
+const PlyrPlayer = dynamic(() => import('@/components/Plyr'), {
+  loading: () => (
+    <div
+      style={{
         width: '100%',
         height: '360px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
       }}
-      >
-        <ReactLoading width={40} type="bars" color="#fff" />
-      </div>
-    ),
-  });
+    >
+      <ReactLoading width={40} type="bars" color="#fff" />
+    </div>
+  ),
+});
 
 export default function Home() {
   const [url, setUrl] = useState('');
-  const { colors } = useContext(ThemeContext);
+  const [hasVideoParam, setHasVideoParam] = useState(false);
+  const {colors} = useContext(ThemeContext);
+
+  // Preenche automaticamente o campo se houver ?video= na URL
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const videoParam = params.get('video');
+      if (videoParam) {
+        setUrl(videoParam);
+        setHasVideoParam(true);
+      }
+    }
+  }, []);
 
   const clearInput = () => {
     toast('The input was cleaned', {
@@ -67,24 +77,27 @@ export default function Home() {
       />
 
       <Container>
-
         <PlyrPlayer url={url} />
 
-        <footer>
-          <div>
-            <label htmlFor="video-url">Paste the url (M3U8)</label>
-            <input
-              id="video-url"
-              type="text"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-          </div>
+        {!hasVideoParam && (
+          <footer>
+            <div>
+              <label htmlFor="video-url">Paste the url (M3U8)</label>
+              <input
+                id="video-url"
+                type="text"
+                value={url}
+                onChange={e => setUrl(e.target.value)}
+              />
+            </div>
 
-          <hr />
+            <hr />
 
-          <button type="button" onClick={clearInput}>clear</button>
-        </footer>
+            <button type="button" onClick={clearInput}>
+              clear
+            </button>
+          </footer>
+        )}
       </Container>
 
       <HotToast />
