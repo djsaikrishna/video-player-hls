@@ -354,6 +354,6 @@ export const VideoWrapper = styled.main<{
 
   @media (max-height: 568px) and (orientation: landscape) {
     width: 542px;
-    margin-top: 1rem;
+    // margin-top: 1rem;
   }
 `;
