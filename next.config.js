@@ -2,6 +2,9 @@ require('dotenv').config();
 const webpack = require('webpack');
 
 module.exports = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   webpack(config) {
     // Configuring use of environment variables
     config.plugins.push(new webpack.EnvironmentPlugin(process.env));

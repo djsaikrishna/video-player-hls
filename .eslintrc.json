@@ -1,55 +1,55 @@
 {
-	"env": {
-		"browser": true,
-		"es2021": true
-	},
-	"extends": ["plugin:react/recommended", "airbnb"],
-	"parser": "@typescript-eslint/parser",
-	"parserOptions": {
-		"ecmaFeatures": {
-			"jsx": true
-		},
-		"ecmaVersion": 12,
-		"sourceType": "module"
-	},
-	"plugins": ["react", "@typescript-eslint"],
-	"rules": {
-		"react/jsx-filename-extension": [
-			1,
-			{
-				"extensions": [".ts", ".tsx"]
-			}
-		],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["airbnb", "plugin:react/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react"],
+  "rules": {
+    "global-require": "off",
+    "import/extensions": [
+      {
+        "js": "never",
+        "jsx": "never",
+        "mjs": "never",
+        "ts": "never",
+        "tsx": "never",
+        "vue": "never"
+      },
+      "error",
+      "ignorePackages"
+    ],
     "import/no-unresolved": "off",
-		"react/react-in-jsx-scope": "off",
-		"global-require": "off",
-		"import/prefer-default-export": "off",
-    "prefer-const": "off",
-		"no-unused-expressions": [
-			"error",
-			{
-				"allowTaggedTemplates": true
-			}
-		],
     "import/no-webpack-loader-syntax": "off",
-		"import/extensions": [
-			"error",
-			"ignorePackages",
-			{
-				"js": "never",
-				"mjs": "never",
-				"jsx": "never",
-				"ts": "never",
-				"tsx": "never",
-				"vue": "never"
-			}
-		]
-	},
-	"settings": {
-		"import/resolver": {
-			"node": {
-				"extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".vue"]
-			}
-		}
-	}
+    "import/prefer-default-export": "off",
+    "no-unused-expressions": [
+      {
+        "allowTaggedTemplates": true
+      },
+      "error"
+    ],
+    "prefer-const": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".ts", ".tsx"]
+      }
+    ],
+    "react/react-in-jsx-scope": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".json", ".jsx", ".ts", ".tsx", ".vue"]
+      }
+    }
+  }
 }
