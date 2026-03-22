@@ -1,3 +1,4 @@
+'use client';
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable import/no-unresolved */
@@ -12,7 +13,9 @@ import {ThemeContext} from 'styled-components';
 
 import {Container} from '../styles/pages/index/styles';
 
-const HotToast = dynamic(() => import('@/components/HotToast'));
+const HotToast = dynamic(() => import('@/components/HotToast'), {
+  ssr: false,
+});
 const PlyrPlayer = dynamic(() => import('@/components/Plyr'), {
   loading: () => (
     <div
@@ -27,6 +30,7 @@ const PlyrPlayer = dynamic(() => import('@/components/Plyr'), {
       <ReactLoading width={40} type="bars" color="#fff" />
     </div>
   ),
+  ssr: false,
 });
 
 export default function Home() {
