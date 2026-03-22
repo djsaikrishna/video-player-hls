@@ -32,16 +32,23 @@ const PlyrPlayer = dynamic(() => import('@/components/Plyr'), {
 export default function Home() {
   const [url, setUrl] = useState('');
   const [hasVideoParam, setHasVideoParam] = useState(false);
+  const [isFull, setIsFull] = useState(false);
   const {colors} = useContext(ThemeContext);
 
-  // Preenche automaticamente o campo se houver ?video= na URL
+  // Preenche automaticamente o campo se houver ?video= na URL e verifica ?full=1
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const videoParam = params.get('video');
+      const fullParam = params.get('full');
       if (videoParam) {
         setUrl(videoParam);
         setHasVideoParam(true);
+      }
+      if (fullParam === '1') {
+        setIsFull(true);
+      } else {
+        setIsFull(false);
       }
     }
   }, []);
@@ -76,10 +83,10 @@ export default function Home() {
         ]}
       />
 
-      <Container>
-        <PlyrPlayer url={url} />
+      <Container $full={isFull}>
+        <PlyrPlayer url={url} full={isFull} />
 
-        {!hasVideoParam && (
+        {!hasVideoParam && !isFull && (
           <footer>
             <div>
               <label htmlFor="video-url">Paste the url (M3U8)</label>

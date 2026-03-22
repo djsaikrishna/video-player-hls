@@ -1,58 +1,73 @@
 import styled from 'styled-components';
 
-export const VideoWrapper = styled.main`
-  width: 640px;
-  max-height: 360px;
+export const VideoWrapper = styled.main<{$full?: boolean}>`
+  width: ${({$full}) => ($full ? '100vw' : '640px')};
+  height: ${({$full}) => ($full ? '100vh' : 'auto')};
+  max-height: ${({$full}) => ($full ? '100vh' : '360px')};
+  min-height: ${({$full}) => ($full ? '100vh' : 'unset')};
+  min-width: ${({$full}) => ($full ? '100vw' : 'unset')};
+  position: ${({$full}) => ($full ? 'fixed' : 'relative')};
+  top: ${({$full}) => ($full ? '0' : 'unset')};
+  left: ${({$full}) => ($full ? '0' : 'unset')};
+  z-index: ${({$full}) => ($full ? '9999' : '1')};
+  background: ${({$full}) => ($full ? '#000' : 'transparent')};
 
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
 
-  box-shadow: 0px 30px 20px -10px rgb(0 0 0 / 47%);
+  box-shadow: ${({$full}) =>
+    $full ? 'none' : '0px 30px 20px -10px rgb(0 0 0 / 47%)'};
 
   video#player {
-    min-width: 640px;
-    min-height: 360px;
+    width: ${({$full}) => ($full ? '100vw' : '640px')};
+    height: ${({$full}) => ($full ? '100vh' : '360px')};
+    min-width: ${({$full}) => ($full ? '100vw' : '640px')};
+    min-height: ${({$full}) => ($full ? '100vh' : '360px')};
+    max-width: 100vw;
+    max-height: 100vh;
+
+    object-fit: ${({$full}) => ($full ? 'cover' : 'contain')};
 
     /* RESPONSIVE */
-
-    @media (max-width: 540px) {
-      min-width: 495px;
-      min-height: 277px;
-    }
-    @media (max-width: 415px) {
-      min-width: 339px;
-      min-height: 191px;
-    }
-    @media (max-width: 320px) {
-      min-width: 297px;
-      min-height: 167px;
-    }
-    @media (max-width: 280px) {
-      min-width: 261px;
-      min-height: 145px;
-    }
-
-
-    @media (max-height: 568px) and (orientation: landscape)  {
-      min-width: 542px;
-      min-height: 305px;
-    }
+    ${({$full}) =>
+      !$full &&
+      `
+      @media (max-width: 540px) {
+        min-width: 495px;
+        min-height: 277px;
+      }
+      @media (max-width: 415px) {
+        min-width: 339px;
+        min-height: 191px;
+      }
+      @media (max-width: 320px) {
+        min-width: 297px;
+        min-height: 167px;
+      }
+      @media (max-width: 280px) {
+        min-width: 261px;
+        min-height: 145px;
+      }
+      @media (max-height: 568px) and (orientation: landscape) {
+        min-width: 542px;
+        min-height: 305px;
+      }
+    `}
   }
-
-
 
   /* PLYR CSS */
 
   .plyr {
-    --plyr-color-main: ${(props) => props.theme.colors.secondary};
-    --plyr-menu-color: ${(props) => props.theme.colors.secondary};
-    --plyr-menu-background: ${(props) => props.theme.colors.white};
-    --plyr-video-control-color: ${(props) => props.theme.colors.white};
-    --plyr-video-control-color-hover:  ${(props) => props.theme.colors.white};
+    --plyr-color-main: ${props => props.theme.colors.secondary};
+    --plyr-menu-color: ${props => props.theme.colors.secondary};
+    --plyr-menu-background: ${props => props.theme.colors.white};
+    --plyr-video-control-color: ${props => props.theme.colors.white};
+    --plyr-video-control-color-hover: ${props => props.theme.colors.white};
     --plyr-video-controls-background: transparent;
-    --plyr-video-control-background-hover: ${(props) => props.theme.colors.secondary};
+    --plyr-video-control-background-hover: ${props =>
+      props.theme.colors.secondary};
 
     --plyr-control-icon-size: 18px;
 
@@ -143,12 +158,12 @@ export const VideoWrapper = styled.main`
     width: 100%;
 
     /* PROGRESS BAR */
-    .plyr__progress input[type="range"] {
+    .plyr__progress input[type='range'] {
       appearance: none;
-      color: ${(props) => props.theme.colors.white};
+      color: ${props => props.theme.colors.white};
 
-      transition: opacity .4s;
-      opacity: .8;
+      transition: opacity 0.4s;
+      opacity: 0.8;
 
       &::-webkit-slider-thumb {
         appearance: none;
@@ -167,56 +182,60 @@ export const VideoWrapper = styled.main`
     .plyr__menu {
       button {
         background: transparent;
-        transition: opacity .4s;
-        opacity: .8;
+        transition: opacity 0.4s;
+        opacity: 0.8;
 
-        &:hover, :active {
+        &:hover,
+        :active {
           opacity: 1;
         }
       }
 
       div.plyr__menu__container div {
-        background: ${(props) => props.theme.colors.white};
+        background: ${props => props.theme.colors.white};
         border-radius: 4px;
 
-        button[data-plyr="settings"],
+        button[data-plyr='settings'],
         button.plyr__control--back,
-        button[data-plyr="speed"],
-        [data-plyr="capture"] {
+        button[data-plyr='speed'],
+        [data-plyr='capture'] {
           &:hover {
-            color: ${(props) => props.theme.colors.pink};
+            color: ${props => props.theme.colors.pink};
           }
         }
       }
     }
 
     /* Remove background color hover */
-    [data-plyr='rewind'], [data-plyr='play'],
-    [data-plyr="fast-forward"], [data-plyr="pip"], [data-plyr="fullscreen"] {
+    [data-plyr='rewind'],
+    [data-plyr='play'],
+    [data-plyr='fast-forward'],
+    [data-plyr='pip'],
+    [data-plyr='fullscreen'] {
       background: transparent;
-      opacity: .8;
-      transition: opacity .4s;
+      opacity: 0.8;
+      transition: opacity 0.4s;
       &:hover {
         opacity: 1;
       }
     }
 
     /* CONTROLS  rewind | forward */
-    [data-plyr="rewind"] {
+    [data-plyr='rewind'] {
       svg {
         width: 15px;
       }
       margin-right: -7px;
     }
 
-    [data-plyr="fast-forward"] {
+    [data-plyr='fast-forward'] {
       svg {
         width: 15px;
       }
       margin-left: -7px;
       margin-right: 7px;
 
-      @media(max-width: 411px) {
+      @media (max-width: 411px) {
         margin-right: 0px;
       }
     }
@@ -230,22 +249,22 @@ export const VideoWrapper = styled.main`
       }
 
       > button {
-        opacity: .8;
-        transition: opacity .4s;
+        opacity: 0.8;
+        transition: opacity 0.4s;
         &:hover {
           opacity: 1;
           background: transparent;
         }
       }
 
-      input[type="range"] {
+      input[type='range'] {
         appearance: none;
         width: 50px;
-        color: ${(props) => props.theme.colors.white};
+        color: ${props => props.theme.colors.white};
         cursor: col-resize;
 
-        opacity: .8;
-        transition: opacity .4s;
+        opacity: 0.8;
+        transition: opacity 0.4s;
 
         &::-webkit-slider-thumb {
           appearance: none;
@@ -277,7 +296,6 @@ export const VideoWrapper = styled.main`
     @media (max-width: 280px) {
       --plyr-control-spacing: 6px;
     }
-
   }
 
   div.top_row {
@@ -309,7 +327,7 @@ export const VideoWrapper = styled.main`
 
     @media (max-width: 415px) {
       .content {
-         &:first-child {
+        &:first-child {
           gap: 0rem;
         }
       }
@@ -331,10 +349,8 @@ export const VideoWrapper = styled.main`
     width: 261px;
   }
 
-
-  @media (max-height: 568px) and (orientation: landscape)  {
+  @media (max-height: 568px) and (orientation: landscape) {
     width: 542px;
     margin-top: 1rem;
   }
-
 `;

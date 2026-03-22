@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.div<{$full?: boolean}>`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: ${({$full}) => ($full ? 'stretch' : 'center')};
+  justify-content: ${({$full}) => ($full ? 'stretch' : 'center')};
 
   width: 100%;
   min-height: 100vh;
@@ -12,11 +12,19 @@ export const Container = styled.div`
   gap: 2rem;
 
   overflow: hidden;
-
+  ${({$full}) =>
+    $full &&
+    `
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      min-width: 100vw;
+      background: #000;
+    `}
 
   h1 {
     font-size: 50px;
-    color: ${(props) => props.theme.colors.text};
+    color: ${props => props.theme.colors.text};
   }
 
   footer {
@@ -42,9 +50,9 @@ export const Container = styled.div`
       width: 256px;
       height: 32px;
 
-      color: ${(props) => props.theme.colors.text};
-      background: ${(props) => props.theme.colors.secondary};
-      border: 1px solid ${(props) => props.theme.colors.text};
+      color: ${props => props.theme.colors.text};
+      background: ${props => props.theme.colors.secondary};
+      border: 1px solid ${props => props.theme.colors.text};
 
       transition: all 0.4s;
 
@@ -61,7 +69,7 @@ export const Container = styled.div`
       }
     }
 
-    input[type=text] {
+    input[type='text'] {
       outline: 0;
       border: 0;
       background: transparent;
@@ -71,15 +79,15 @@ export const Container = styled.div`
       width: 256px;
       height: 32px;
       /* padding-left: 0.5rem; */
-      color: ${(props) => props.theme.colors.text};
-      border-bottom: 1px solid ${(props) => props.theme.colors.text};
+      color: ${props => props.theme.colors.text};
+      border-bottom: 1px solid ${props => props.theme.colors.text};
 
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
 
       &::placeholder {
-        color: ${(props) => props.theme.colors.text};
+        color: ${props => props.theme.colors.text};
       }
 
       @media (max-width: 320px) {
@@ -94,7 +102,7 @@ export const Container = styled.div`
       border: 0;
       width: 1px;
       height: 32px;
-      background: ${(props) => props.theme.colors.text};
+      background: ${props => props.theme.colors.text};
     }
 
     button {
@@ -105,15 +113,12 @@ export const Container = styled.div`
       width: 50px;
       height: 32px;
 
-      color: ${(props) => props.theme.colors.text};
-      border: 1px solid ${(props) => props.theme.colors.text};
+      color: ${props => props.theme.colors.text};
+      border: 1px solid ${props => props.theme.colors.text};
     }
 
-
-    @media (max-height: 568px) and (orientation: landscape)  {
+    @media (max-height: 568px) and (orientation: landscape) {
       margin-bottom: 1rem;
     }
-
   }
-
 `;

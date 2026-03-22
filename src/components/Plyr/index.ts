@@ -1,1 +1,1 @@
-export { default } from './Plyr';
+export {default} from './Plyr';
