@@ -1,32 +1,6 @@
 {
-  "name": "hls-player",
-  "version": "1.0.0",
   "author": {
     "name": "Antonio Narcilio"
-  },
-  "license": "unlicensed",
-  "private": "true",
-  "scripts": {
-    "setup": "yarn install",
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "next-lint": "next lint",
-    "lint": "eslint ./",
-    "lint:fix": "yarn lint --fix",
-    "prepare": "husky install",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    ".tsx": [
-      "yarn lint:fix"
-    ],
-    ".ts": [
-      "yarn lint:fix"
-    ],
-    ".js": [
-      "yarn lint:fix"
-    ]
   },
   "dependencies": {
     "dashjs": "^4.0.0-npm",
@@ -63,5 +37,34 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "lint-staged": "^11.1.2",
     "typescript": "^4.3.5"
-  }
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "license": "unlicensed",
+  "lint-staged": {
+    ".js": [
+      "yarn lint:fix"
+    ],
+    ".ts": [
+      "yarn lint:fix"
+    ],
+    ".tsx": [
+      "yarn lint:fix"
+    ]
+  },
+  "name": "hls-player",
+  "private": "true",
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "lint": "eslint ./",
+    "lint-staged": "lint-staged",
+    "lint:fix": "yarn lint --fix",
+    "next-lint": "next lint",
+    "prepare": "husky install",
+    "setup": "yarn install",
+    "start": "next start"
+  },
+  "version": "1.0.0"
 }
