@@ -80,7 +80,7 @@ export const VideoWrapper = styled.main<{$full?: boolean}>`
       width: 110px;
       height: 110px;
 
-      display: flex;
+      display: flex !important;
       align-items: center;
       justify-content: center;
 
