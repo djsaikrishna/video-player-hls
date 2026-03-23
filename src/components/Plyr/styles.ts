@@ -24,10 +24,10 @@ export const VideoWrapper = styled.main<{
     $full ? 'none' : '0px 30px 20px -10px rgb(0 0 0 / 47%)'};
 
   video#player {
-    width: ${({$full}) => ($full ? '100vw' : '640px')};
-    height: ${({$full}) => ($full ? '100vh' : '360px')};
-    min-width: ${({$full}) => ($full ? '100vw' : '640px')};
-    min-height: ${({$full}) => ($full ? '100vh' : '360px')};
+    width: ${({$full}) => ($full ? '100vw' : '100%')};
+    height: ${({$full}) => ($full ? '100vh' : '100%')};
+    min-width: ${({$full}) => ($full ? '100vw' : '100%')};
+    min-height: ${({$full}) => ($full ? '100vh' : '100%')};
     max-width: 100vw;
     max-height: 100vh;
 
