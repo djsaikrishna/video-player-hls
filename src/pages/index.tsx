@@ -43,24 +43,17 @@ export default function Home() {
   // Preenche automaticamente o campo se houver ?video= na URL e verifica ?full=1 e ?aspect=cover|fill|contain
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Extrai o parâmetro 'video' manualmente para manter a codificação
       const search = window.location.search;
-      let videoParam: string | null = null;
-      if (search) {
-        const match = search.match(/[?&]video=([^&]*)/);
-        if (match) {
-
-          videoParam = match[1]?.replace(/%26/g, '&')
-        }
-      }
       const params = new URLSearchParams(search);
+      const videoParam = params.get('video');
       const fullParam = params.get('full');
       const aspectParam = params.get('aspect');
+
       if (videoParam) {
-        console.log('videoParam', videoParam);
         setUrl(videoParam);
         setHasVideoParam(true);
       }
+
       if (fullParam === '1') {
         setIsFull(true);
       } else {
